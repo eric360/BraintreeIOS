@@ -14,6 +14,7 @@
 		25A07D4B1B8513360050BB09 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A07D4A1B8513360050BB09 /* Images.xcassets */; };
 		25A07D4E1B8513360050BB09 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25A07D4C1B8513360050BB09 /* LaunchScreen.xib */; };
 		25A07D5A1B8513360050BB09 /* BrainTreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A07D591B8513360050BB09 /* BrainTreeTests.m */; };
+		3AC073FCF8152B567031DE6D /* libPods-BrainTree.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E35BFD5E0503B7608C7691 /* libPods-BrainTree.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,9 @@
 		25A07D531B8513360050BB09 /* BrainTreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrainTreeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A07D581B8513360050BB09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25A07D591B8513360050BB09 /* BrainTreeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrainTreeTests.m; sourceTree = "<group>"; };
+		64E35BFD5E0503B7608C7691 /* libPods-BrainTree.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BrainTree.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		992097C3EB422B0FA873E602 /* Pods-BrainTree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrainTree.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrainTree/Pods-BrainTree.release.xcconfig"; sourceTree = "<group>"; };
+		A843E5F8DFB61A9BAC72C498 /* Pods-BrainTree.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrainTree.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BrainTree/Pods-BrainTree.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AC073FCF8152B567031DE6D /* libPods-BrainTree.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +65,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02BAC08E0DD1C5E5C69E79A9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				64E35BFD5E0503B7608C7691 /* libPods-BrainTree.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		25A07D311B8513360050BB09 = {
 			isa = PBXGroup;
 			children = (
 				25A07D3C1B8513360050BB09 /* BrainTree */,
 				25A07D561B8513360050BB09 /* BrainTreeTests */,
 				25A07D3B1B8513360050BB09 /* Products */,
+				DD1727F808EFA40CB8D69DA8 /* Pods */,
+				02BAC08E0DD1C5E5C69E79A9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,6 +134,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		DD1727F808EFA40CB8D69DA8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A843E5F8DFB61A9BAC72C498 /* Pods-BrainTree.debug.xcconfig */,
+				992097C3EB422B0FA873E602 /* Pods-BrainTree.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +150,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25A07D5D1B8513360050BB09 /* Build configuration list for PBXNativeTarget "BrainTree" */;
 			buildPhases = (
+				D6F1D31B48BD299693265BDB /* Check Pods Manifest.lock */,
 				25A07D361B8513360050BB09 /* Sources */,
 				25A07D371B8513360050BB09 /* Frameworks */,
 				25A07D381B8513360050BB09 /* Resources */,
+				5B259BC31CC2A01792137B6A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -213,6 +239,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5B259BC31CC2A01792137B6A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrainTree/Pods-BrainTree-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D6F1D31B48BD299693265BDB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		25A07D361B8513360050BB09 /* Sources */ = {
@@ -347,6 +406,7 @@
 		};
 		25A07D5E1B8513360050BB09 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A843E5F8DFB61A9BAC72C498 /* Pods-BrainTree.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BrainTree/Info.plist;
@@ -357,6 +417,7 @@
 		};
 		25A07D5F1B8513360050BB09 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 992097C3EB422B0FA873E602 /* Pods-BrainTree.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BrainTree/Info.plist;
@@ -418,6 +479,7 @@
 				25A07D5F1B8513360050BB09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		25A07D601B8513360050BB09 /* Build configuration list for PBXNativeTarget "BrainTreeTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +488,7 @@
 				25A07D621B8513360050BB09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
