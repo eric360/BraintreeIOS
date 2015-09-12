@@ -14,52 +14,87 @@
 @implementation ViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // TODO: Switch this URL to your own authenticated API
-//    NSURL *clientTokenURL = [NSURL URLWithString:@"https://braintree-sample-merchant.herokuapp.com/client_token"];
-//
-    NSURL *clientTokenURL = [NSURL URLWithString:@"https://fathomless-sea-8038.herokuapp.com/client_token"];
+    NSURL *clientTokenURL = [NSURL URLWithString:[Heroku serverUrl]];
     NSMutableURLRequest *clientTokenRequest = [NSMutableURLRequest requestWithURL:clientTokenURL];
     [clientTokenRequest setValue:@"text/plain" forHTTPHeaderField:@"Accept"];
     [NSURLConnection
      sendAsynchronousRequest:clientTokenRequest
      queue:[NSOperationQueue mainQueue]
      completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-         // TODO: Handle errors in [(NSHTTPURLResponse *)response statusCode] and connectionError
          NSString *clientToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         
-         // Initialize `Braintree` once per checkout session
          self.braintree = [Braintree braintreeWithClientToken:clientToken];
          NSLog(@"%@",clientToken);
      }];
+    
+    NSURL *url = [[NSURL alloc] initWithString:@"https://safe-springs-8517.herokuapp.com/"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    request.HTTPMethod = @"POST";
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data_, NSURLResponse *response, NSError *error) {
+        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:data_ options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"Data: %@",data);
+        NSLog(@"Error: %@",error);
+    }] resume];
+    
+    /*
+    
+    let request = NSMutableURLRequest(URL: NSURL(string:NSString(format: pathUrl,M3ServerAPI.sharedInstance.token!) as String)!)
+    if(method == M3ServerMethodType.Post)
+    {
+        request.HTTPMethod = "POST"
+        request.HTTPBody =  data?.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+    let query = NSURLSession.sharedSession().dataTaskWithRequest(request)
+    {data_, response, error in
+        if error != nil
+        {
+            completion(responseData: nil,response: M3ServerResponse.NetworkError)
+        }
+        else{
+            if data_ != nil
+            {
+                var jsonError: NSError?
+                var  data  =  NSJSONSerialization.JSONObjectWithData(data_!, options: NSJSONReadingOptions.AllowFragments, error: &jsonError) as! NSDictionary
+                if let error_ = data["error"] as? String
+                {
+                    if error_ == "wrong_token" {
+                        completion(responseData:nil,response:M3ServerResponse.WrongTokenError)
+                    }
+                    else
+                    {
+                        completion(responseData:nil,response:M3ServerResponse.UnknownError)
+                    }
+                }
+                else
+                {
+                    completion(responseData:data,response:M3ServerResponse.Success)
+                }
+            }
+            else
+            {
+                completion(responseData:nil,response:M3ServerResponse.UnknownError)
+            }
+        }
+    }
+    query.resume()
+    
+    */
+    
 }
+
+
 
 - (IBAction)tappedMyPayButton {
-    
-    // If you haven't already, create and retain a `Braintree` instance with the client token.
-    // Typically, you only need to do this once per session.
-    //self.braintree = [Braintree braintreeWithClientToken:aClientToken];
-    
-    // Create a BTDropInViewController
     BTDropInViewController *dropInViewController = [self.braintree dropInViewControllerWithDelegate:self];
-    // This is where you might want to customize your Drop in. (See below.)
-    
-    // The way you present your BTDropInViewController instance is up to you.
-    // In this example, we wrap it in a new, modally presented navigation controller:
-    dropInViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                                                          target:self
-                                                                                                          action:@selector(userDidCancelPayment)];
-    
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dropInViewController];
-    [self presentViewController:navigationController animated:YES completion:nil];
+    dropInViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:dropInViewController] animated:YES completion:nil];
 }
 
-- (void)userDidCancelPayment {
+- (void)cancel {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)dropInViewController:(__unused BTDropInViewController *)viewController didSucceedWithPaymentMethod:(BTPaymentMethod *)paymentMethod {
@@ -72,15 +107,18 @@
 }
 
 - (void)postNonceToServer:(NSString *)paymentMethodNonce {
-    // Update URL with your server
-    NSURL *paymentURL = [NSURL URLWithString:@"https://your-server.example.com/payment-methods"];
+    NSURL *paymentURL = [NSURL URLWithString:@"https://safe-springs-8517.herokuapp.com/payment-methods"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:paymentURL];
     request.HTTPBody = [[NSString stringWithFormat:@"payment_method_nonce=%@", paymentMethodNonce] dataUsingEncoding:NSUTF8StringEncoding];
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               // TODO: Handle success and failure
-                           }];
+                               NSLog(@"Response: %@",response);
+                               
+                               NSLog(@"Data: %@",data);
+                               
+                               NSLog(@"Connection Error: %@",connectionError);
+    }];
 }
 
 @end

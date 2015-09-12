@@ -15,6 +15,7 @@
 		25A07D4E1B8513360050BB09 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25A07D4C1B8513360050BB09 /* LaunchScreen.xib */; };
 		25A07D5A1B8513360050BB09 /* BrainTreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A07D591B8513360050BB09 /* BrainTreeTests.m */; };
 		3AC073FCF8152B567031DE6D /* libPods-BrainTree.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E35BFD5E0503B7608C7691 /* libPods-BrainTree.a */; };
+		DA65AF511BA2BAAF00A548CE /* Heroku.m in Sources */ = {isa = PBXBuildFile; fileRef = DA65AF501BA2BAAF00A548CE /* Heroku.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,8 @@
 		64E35BFD5E0503B7608C7691 /* libPods-BrainTree.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BrainTree.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		992097C3EB422B0FA873E602 /* Pods-BrainTree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrainTree.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrainTree/Pods-BrainTree.release.xcconfig"; sourceTree = "<group>"; };
 		A843E5F8DFB61A9BAC72C498 /* Pods-BrainTree.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrainTree.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BrainTree/Pods-BrainTree.debug.xcconfig"; sourceTree = "<group>"; };
+		DA65AF4F1BA2BAAF00A548CE /* Heroku.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Heroku.h; sourceTree = "<group>"; };
+		DA65AF501BA2BAAF00A548CE /* Heroku.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Heroku.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +99,8 @@
 		25A07D3C1B8513360050BB09 /* BrainTree */ = {
 			isa = PBXGroup;
 			children = (
+				DA65AF4F1BA2BAAF00A548CE /* Heroku.h */,
+				DA65AF501BA2BAAF00A548CE /* Heroku.m */,
 				25A07D411B8513360050BB09 /* AppDelegate.h */,
 				25A07D421B8513360050BB09 /* AppDelegate.m */,
 				25A07D441B8513360050BB09 /* ViewController.h */,
@@ -279,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A07D461B8513360050BB09 /* ViewController.m in Sources */,
+				DA65AF511BA2BAAF00A548CE /* Heroku.m in Sources */,
 				25A07D431B8513360050BB09 /* AppDelegate.m in Sources */,
 				25A07D401B8513360050BB09 /* main.m in Sources */,
 			);
