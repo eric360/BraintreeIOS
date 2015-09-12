@@ -25,7 +25,6 @@
          self.braintree = [Braintree braintreeWithClientToken:clientToken];
          NSLog(@"%@",clientToken);
      }];
-    
     NSURL *url = [[NSURL alloc] initWithString:@"https://safe-springs-8517.herokuapp.com/"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     request.HTTPMethod = @"POST";
@@ -34,55 +33,7 @@
         NSLog(@"Data: %@",data);
         NSLog(@"Error: %@",error);
     }] resume];
-    
-    /*
-    
-    let request = NSMutableURLRequest(URL: NSURL(string:NSString(format: pathUrl,M3ServerAPI.sharedInstance.token!) as String)!)
-    if(method == M3ServerMethodType.Post)
-    {
-        request.HTTPMethod = "POST"
-        request.HTTPBody =  data?.dataUsingEncoding(NSUTF8StringEncoding)
-    }
-    let query = NSURLSession.sharedSession().dataTaskWithRequest(request)
-    {data_, response, error in
-        if error != nil
-        {
-            completion(responseData: nil,response: M3ServerResponse.NetworkError)
-        }
-        else{
-            if data_ != nil
-            {
-                var jsonError: NSError?
-                var  data  =  NSJSONSerialization.JSONObjectWithData(data_!, options: NSJSONReadingOptions.AllowFragments, error: &jsonError) as! NSDictionary
-                if let error_ = data["error"] as? String
-                {
-                    if error_ == "wrong_token" {
-                        completion(responseData:nil,response:M3ServerResponse.WrongTokenError)
-                    }
-                    else
-                    {
-                        completion(responseData:nil,response:M3ServerResponse.UnknownError)
-                    }
-                }
-                else
-                {
-                    completion(responseData:data,response:M3ServerResponse.Success)
-                }
-            }
-            else
-            {
-                completion(responseData:nil,response:M3ServerResponse.UnknownError)
-            }
-        }
-    }
-    query.resume()
-    
-    */
-    
 }
-
-
-
 - (IBAction)tappedMyPayButton {
     BTDropInViewController *dropInViewController = [self.braintree dropInViewControllerWithDelegate:self];
     dropInViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
@@ -99,7 +50,7 @@
 
 - (void)dropInViewController:(__unused BTDropInViewController *)viewController didSucceedWithPaymentMethod:(BTPaymentMethod *)paymentMethod {
     [self postNonceToServer:paymentMethod.nonce]; // Send payment method nonce to your server
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 - (void)dropInViewControllerDidCancel:(__unused BTDropInViewController *)viewController {
@@ -107,18 +58,17 @@
 }
 
 - (void)postNonceToServer:(NSString *)paymentMethodNonce {
-    NSURL *paymentURL = [NSURL URLWithString:@"https://safe-springs-8517.herokuapp.com/payment-methods"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:paymentURL];
+    NSURL *url = [[NSURL alloc] initWithString:@"https://safe-springs-8517.herokuapp.com/payment-methods"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    request.HTTPMethod = @"POST";
     request.HTTPBody = [[NSString stringWithFormat:@"payment_method_nonce=%@", paymentMethodNonce] dataUsingEncoding:NSUTF8StringEncoding];
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               NSLog(@"Response: %@",response);
-                               
-                               NSLog(@"Data: %@",data);
-                               
-                               NSLog(@"Connection Error: %@",connectionError);
-    }];
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data_, NSURLResponse *response, NSError *error) {
+        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:data_ options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"Data: %@",data);
+        NSLog(@"Response: %@",response);
+        NSLog(@"Error: %@",error);
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }] resume];
 }
 
 @end
